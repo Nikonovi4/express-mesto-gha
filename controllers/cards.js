@@ -58,7 +58,7 @@ const addLikePhoto = (req, res) => {
         });
       }
       if (err.name === "CastError") {
-        return res.status(404).send({
+        return res.status(400).send({
           message: "Передан несуществующий _id карточки",
         });
       }
@@ -71,7 +71,12 @@ const removeLikePhoto = (req, res) => {
   const id = req.user._id;
 
   Card.findByIdAndUpdate(cardId, { $pull: { likes: id } }, { new: true })
-    .then((user) => res.status(200).send({ data: user }))
+  .then((card) => {
+    if (card ===null){
+      return res.status(404).send({message: "Переданны некорректныне данные для постановки лайка"})
+    }
+    return res.status(200).send({data: card})
+  })
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
@@ -79,7 +84,7 @@ const removeLikePhoto = (req, res) => {
         });
       }
       if (err.name === "CastError") {
-        return res.status(404).send({
+        return res.status(400).send({
           message: "Передан несуществующий _id карточки",
         });
       }
