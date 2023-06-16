@@ -88,7 +88,7 @@ const updateAvatarById = (req, res) => {
         });
       }
       if (err.name === "CastError") {
-        return res.status(404).send({
+        return res.status(400).send({
           message: "Пользователь с указанным _id не найден",
         });
       }

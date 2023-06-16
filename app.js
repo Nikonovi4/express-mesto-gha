@@ -17,12 +17,6 @@ mongoose
 
 const app = express();
 
-
-app.use(bodyParser.json());
-app.use(timeLoggerMiddleware);
-//app.use(userLoggerMiddleware);
-app.use(routes);
-
 app.use((req, res, next) => {
   req.user = {
     _id: '64894ec507880949708b433b'
@@ -30,6 +24,12 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use(bodyParser.json());
+app.use(timeLoggerMiddleware);
+//app.use(userLoggerMiddleware);
+app.use(routes);
+
 
 app.listen(PORT, () => {
   console.log(`server is runing on port ${PORT}`);
