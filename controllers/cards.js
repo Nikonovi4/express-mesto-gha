@@ -52,13 +52,6 @@ const addLikePhoto = (req, res) => {
       return res.status(200).send({data: card})
     })
     .catch((err) => {
-      if (err.name === "CastError") {
-        return res.status(400).send({
-          message: "Переданны некорректныне данные для постановки лайка",
-        });
-      }
-    })
-    .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
           message: "Переданны некорректныне данные для постановки лайка",

@@ -14,7 +14,7 @@ router.post("/", createCard);
 
 router.delete("/:cardId", deleteCard);
 
-router.patch("/:cardId/likes", addLikePhoto);
+router.put("/:cardId/likes", addLikePhoto);
 
 router.delete("/:cardId/likes", removeLikePhoto);
 
