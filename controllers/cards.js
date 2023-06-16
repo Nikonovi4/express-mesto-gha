@@ -45,7 +45,19 @@ const addLikePhoto = (req, res) => {
   const id = req.user._id;
 
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: id } }, { new: true })
-    .then((user) => res.status(200).send({ data: user }))
+    .then((card) => {
+      if (card ===null){
+        return res.status(404).send({message: "Переданны некорректныне данные для постановки лайка"})
+      }
+      return res.status(200).send({data: card})
+    })
+    .catch((err) => {
+      if (err.name === "CastError") {
+        return res.status(400).send({
+          message: "Переданны некорректныне данные для постановки лайка",
+        });
+      }
+    })
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
