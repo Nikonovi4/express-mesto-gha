@@ -103,14 +103,6 @@ const updateAvatarById = (req, res) => {
     });
 };
 
-const deleteUserById = (req, res) => {
-  const { id } = req.params;
-
-  User.findByIdAndDelete(id).then((user) =>
-    res.status(200).send({ data: user })
-  );
-};
-
 module.exports = {
   getUsers,
   getUserById,
