@@ -30,7 +30,7 @@ const createUser = (req, res) => {
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
-          message: "Переданны некорректныне данные при создании пользователя",
+          message: "Переданы некорректные данные при создании пользователя.",
         });
       }
       return res.status(500).send({ message: "Ошибка сервера" });
@@ -55,7 +55,7 @@ const updateUserById = (req, res) => {
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
-          message: "Переданны некорректныне данные при обновление профиля",
+          message: "Переданы некорректные данные при обновлении профиля.",
         });
       }
       if (err.name === "CastError") {
@@ -84,7 +84,7 @@ const updateAvatarById = (req, res) => {
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
-          message: "Переданны некорректныне данные при обновление аватара",
+          message: "Переданы некорректные данные при обновлении аватара.",
         });
       }
       if (err.name === "CastError") {
