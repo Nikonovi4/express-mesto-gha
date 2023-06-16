@@ -30,12 +30,16 @@ const deleteCard = (req, res) => {
   const { cardId } = req.params;
 
   Card.findByIdAndRemove(cardId)
-  .then((card) => {
-    if (card ===null){
-      return res.status(404).send({message: "Переданны некорректныне данные для удаления карточки"})
-    }
-    return res.status(200).send({data: card})
-  })
+    .then((card) => {
+      if (card === null) {
+        return res
+          .status(404)
+          .send({
+            message: "Переданны некорректныне данные для удаления карточки",
+          });
+      }
+      return res.status(200).send({ data: card });
+    })
     .catch((err) => {
       if (err.name === "CastError") {
         return res.status(400).send({
@@ -51,10 +55,14 @@ const addLikePhoto = (req, res) => {
 
   Card.findByIdAndUpdate(cardId, { $addToSet: { likes: id } }, { new: true })
     .then((card) => {
-      if (card ===null){
-        return res.status(404).send({message: "Переданны некорректныне данные для постановки лайка"})
+      if (card === null) {
+        return res
+          .status(404)
+          .send({
+            message: "Переданны некорректныне данные для постановки лайка",
+          });
       }
-      return res.status(200).send({data: card})
+      return res.status(200).send({ data: card });
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
@@ -76,12 +84,16 @@ const removeLikePhoto = (req, res) => {
   const id = req.user._id;
 
   Card.findByIdAndUpdate(cardId, { $pull: { likes: id } }, { new: true })
-  .then((card) => {
-    if (card ===null){
-      return res.status(404).send({message: "Переданны некорректныне данные для постановки лайка"})
-    }
-    return res.status(200).send({data: card})
-  })
+    .then((card) => {
+      if (card === null) {
+        return res
+          .status(404)
+          .send({
+            message: "Переданны некорректныне данные для постановки лайка",
+          });
+      }
+      return res.status(200).send({ data: card });
+    })
     .catch((err) => {
       if (err.name === "ValidationError") {
         return res.status(400).send({
