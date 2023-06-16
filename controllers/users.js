@@ -108,6 +108,5 @@ module.exports = {
   getUserById,
   createUser,
   updateUserById,
-  deleteUserById,
   updateAvatarById,
 };
