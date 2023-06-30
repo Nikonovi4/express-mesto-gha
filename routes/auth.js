@@ -7,14 +7,14 @@ const {
 } = require("../controllers/users")
 
 
-router.post("/singin",  celebrate({
+router.post("/signin",  celebrate({
   body: Joi.object().keys({
   email: Joi.string().required().email(),
   password: Joi.string().required().min(5),
 }),
 }), login);
 
-router.post("/singup", celebrate({
+router.post("/signup", celebrate({
     body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(5),
