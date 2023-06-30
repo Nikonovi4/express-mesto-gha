@@ -3,8 +3,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const NotFoundError = require("../errors/not-found-error");
 const ValidationError = require("../errors/validation-error");
-const Forbidden = require("../errors/forbidden");
+//const Forbidden = require("../errors/forbidden");
 const ConflictError = require("../errors/conflict-error");
+const UnauthorizedError = require("../errors/unauthorized-error")
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -13,14 +14,14 @@ const login = (req, res, next) => {
     .select("+password")
     .then((user) => {
       if (!user) {
-        return next(new Forbidden("Неправильные логин или пароль"));
+        return next(new UnauthorizedError("Пользователь не найден"));
       } else {
         return bcrypt.compare(
           password,
           user.password,
           function (err, isPasswordMatch) {
             if (!isPasswordMatch) {
-              return next(new Forbidden("Неправильные логин или пароль"));
+              return next(new UnauthorizedError("Неправильные логин или пароль"));
             }
             const token = jwt.sign({ _id: user._id }, "some-secret-key", {
               expiresIn: "7d",
