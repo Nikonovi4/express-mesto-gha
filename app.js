@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const timeLoggerMiddleware = require("./middlewares/timeLogger");
 //const userLoggerMiddleware = require("./middlewares/userLogger");
+const errorHandler = require("./middlewares/error-handler")
 
 const { PORT = 3000 } = process.env;
 
@@ -17,18 +19,11 @@ mongoose
 
 const app = express();
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '64894ec507880949708b433b'
-  };
-
-  next();
-});
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(timeLoggerMiddleware);
-//app.use(userLoggerMiddleware);
 app.use(routes);
+app.use(errorHandler)
 
 
 app.listen(PORT, () => {
