@@ -4,7 +4,6 @@ const routes = require("./routes/index");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const timeLoggerMiddleware = require("./middlewares/timeLogger");
-//const userLoggerMiddleware = require("./middlewares/userLogger");
 const errorHandler = require("./middlewares/error-handler");
 const { errors } = require("celebrate");
 
