@@ -21,7 +21,7 @@ const login = (req, res, next) => {
           return next (new Forbidden("Неправильные логин или пароль"))
         }
         const token = jwt.sign({ _id: user._id }, "some-secret-key", {
-          expiresIn: "7d",
+          expiresIn: '7d',
         });
         res.cookie("jwt", token, {
           maxAge: 604800,
