@@ -5,7 +5,9 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const timeLoggerMiddleware = require("./middlewares/timeLogger");
 //const userLoggerMiddleware = require("./middlewares/userLogger");
-const errorHandler = require("./middlewares/error-handler")
+const errorHandler = require("./middlewares/error-handler");
+const { errors } = require("celebrate");
+
 
 const { PORT = 3000 } = process.env;
 
@@ -23,8 +25,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(timeLoggerMiddleware);
 app.use(routes);
-app.use(errorHandler)
-
+app.use(errors());
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`server is runing on port ${PORT}`);
