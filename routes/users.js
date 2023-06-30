@@ -13,12 +13,16 @@ router.get("/", getUsers);
 
 router.get("/me", getUserInfo)
 
-router.get("/:id", getUserById);
+router.get("/:id", celebrate({
+  body: Joi.object().keys({
+  id: Joi.string().required().token(),
+}),
+}), getUserById);
 
 router.patch("/me", celebrate({
   body: Joi.object().keys({
-  email: Joi.string().required().email(),
-  password: Joi.string().required().min(5),
+  name: Joi.string().min(3).max(30),
+  about: Joi.string().min(3).max(30),
 }),
 }), updateUserById);
 
