@@ -1,5 +1,4 @@
 const Card = require("../models/card");
-const jwt = require("jsonwebtoken");
 const NotFoundError = require("../errors/not-found-error");
 const ValidationError = require("../errors/validation-error");
 
@@ -36,9 +35,7 @@ const deleteCard = (req, res, next) => {
     if (card === null) {
       return next(new NotFoundError("Карта не найдена"));
     } else {
-      const token = req.cookies.jwt;
-      const userCookie = jwt.verify(token, "some-secret-key");
-      if (userCookie._id === card.owner.valueOf()) {
+      if (req.user._id === card.owner.valueOf()) {
         Card.findByIdAndRemove(card._id).then((card) => {
           res.status(200).send({ card });
         });

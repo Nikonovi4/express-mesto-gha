@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const NotFoundError = require("../errors/not-found-error");
 const ValidationError = require("../errors/validation-error");
-//const Forbidden = require("../errors/forbidden");
 const ConflictError = require("../errors/conflict-error");
 const UnauthorizedError = require("../errors/unauthorized-error")
 
@@ -39,10 +38,7 @@ const login = (req, res, next) => {
 };
 
 const getUserInfo = (req, res, next) => {
-  const token = req.cookies.jwt;
-  const userCookie = jwt.verify(token, "some-secret-key");
-
-  User.findById(userCookie._id)
+  User.findById(req.user._id)
     .then((user) => {
       if (user === null) {
         next(new NotFoundError("Пользователь по данному _id не найден"));
