@@ -20,8 +20,16 @@ router.post("/", celebrate({
 
 router.delete("/:cardId", deleteCard);
 
-router.put("/:cardId/likes", addLikePhoto);
+router.put("/:cardId/likes", celebrate({
+  body: Joi.object().keys({
+    cardId: Joi.string().required().min(22).token(),
+}),
+}),addLikePhoto);
 
-router.delete("/:cardId/likes", removeLikePhoto);
+router.delete("/:cardId/likes", celebrate({
+  body: Joi.object().keys({
+  cardId: Joi.string().required().min(22).token(),
+}),
+}),removeLikePhoto);
 
 module.exports = router;
