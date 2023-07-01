@@ -14,20 +14,20 @@ router.get("/", getCards);
 router.post("/", celebrate({
   body: Joi.object().keys({
   name: Joi.string().required().min(2).max(30),
-  link: Joi.string().pattern(/https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/),
+  link: Joi.string().required().pattern(/https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/),
 }),
 }), createCard);
 
 router.delete("/:cardId", deleteCard);
 
 router.put("/:cardId/likes", celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().required().min(22).token(),
 }),
 }),addLikePhoto);
 
 router.delete("/:cardId/likes", celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
   cardId: Joi.string().required().min(22).token(),
 }),
 }),removeLikePhoto);
